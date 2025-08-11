@@ -41,15 +41,18 @@ else
 fi
 
 # Check for high resource usage alerts
-if [ "$CPU_USAGE" -gt 80 ]; then
+CPU_INT=$(echo "$CPU_USAGE" | cut -d'.' -f1)
+MEMORY_INT=$(echo "$MEMORY_PERCENTAGE" | cut -d'.' -f1)
+
+if [ "$CPU_INT" -gt 80 ] 2>/dev/null; then
     log_with_timestamp "⚠️  WARNING: High CPU usage detected!"
 fi
 
-if [ "$MEMORY_PERCENTAGE" -gt 80 ]; then
+if [ "$MEMORY_INT" -gt 80 ] 2>/dev/null; then
     log_with_timestamp "⚠️  WARNING: High memory usage detected!"
 fi
 
-if [ "$DISK_USAGE" -gt 85 ]; then
+if [ "$DISK_USAGE" -gt 85 ] 2>/dev/null; then
     log_with_timestamp "⚠️  WARNING: High disk usage detected!"
 fi
 
